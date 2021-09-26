@@ -1,0 +1,18 @@
+#include <RadioLib.h>
+SX1268 fsk = new Module(5, 27, 14, 26);
+
+void setup() {
+  Serial.begin(9600);
+  int state = fsk.beginFSK(434.0f, 9.6f, 5.0f, 156.2f, 20, 140, 16, 0.5f, 0.0f, false );
+  uint8_t syncWord[] = { 0x2D, 0x01 };  // Hardcoded in RadioLib SX127x.cpp  
+  state = fsk.setSyncWord(syncWord, 2);
+}
+
+int cnt=0;
+char outbuf[12];
+void loop() {
+  sprintf(outbuf, "Msgno=%d",cnt++);
+  Serial.println(outbuf);
+  int state = fsk.transmit(outbuf);
+  delay(1000);
+}
