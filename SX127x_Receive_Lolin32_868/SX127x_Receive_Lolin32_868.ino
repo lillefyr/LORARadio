@@ -60,7 +60,7 @@ static const uint8_t D10  = 1;
 void setup() {
   Serial.begin(115200);
 
-  Serial.println(F("\nSX127x_Receive_LolinD1_32_868"));
+  Serial.println(F("\nSX127x_Receive_Lolin32_868"));
 #define CARRIER_FREQUENCY       868.1  // MHz
 #define BANDWIDTH               125.0  // kHz dual sideband
 #define SPREADING_FACTOR        11
