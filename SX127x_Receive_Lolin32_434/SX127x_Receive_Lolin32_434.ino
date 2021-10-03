@@ -26,12 +26,12 @@
 #define PIN_SPI_MISO (19)
 #define PIN_SPI_SCK  (18)
 
-#define PIN_RESET    (12)
 #define PIN_D0       (14)
+#define PIN_RESET    (12)
 #define PIN_D1       (27)
 #define PIN_D2       (26)
 
-SX1278 lora = new Module(5, 14, 12, 27, 26);
+SX1278 lora = new Module(5, 14, 12, 27);
 /*
 RFM95 freq, 862.0, 1020.0      *)
 RFM96 freq, 410.0, 525.0
@@ -58,34 +58,12 @@ static const uint8_t D9   = 3;
 static const uint8_t D10  = 1;
 */
 
-/* SPI TESTER
-#include <SPI.h> 
-void setup() 
 
-{
-  Serial.begin(115200);                                             // initializing the serial port at 9600 baud rate
-  SPI.begin();                                                    // initialize the SPI port as master
-  delay(100);  
-}
-
-
-void loop() 
-{
-char outByte [20] = "TEST MESSAGE";
-char inByte;
-  for(int i = 0; outByte [i] != ''; i ++)                            // send and receive the bytes of the string
-  {
-    inByte = SPI.transfer(outByte [i]);
-    Serial.write(inByte);   
-  }
-  Serial.println();
-}
- */
 void setup() {
   Serial.begin(115200);
 
-  Serial.println(F("\nSX127x_Receive_Lolin32_868"));
-#define CARRIER_FREQUENCY       868.1  // MHz
+  Serial.println(F("\nSX127x_Receive_Lolin32_434"));
+#define CARRIER_FREQUENCY       436.7  // MHz
 #define BANDWIDTH               125.0  // kHz dual sideband
 #define SPREADING_FACTOR        11
 #define CODING_RATE             8       // 4/8, Extended Hamming
@@ -122,13 +100,10 @@ Serial.print ("SYNC_WORD: "); Serial.println (SYNC_WORD);
     } else {
       Serial.print(F("failed, code "));
       Serial.println(state);
-/*      SPI.begin();
-      for(int i = 0; outByte [i] != '\n'; i ++) {
-        inByte = SPI.transfer(outByte [i]);
-        Serial.write(inByte);
+
+      if ( state == ERR_INVALID_FREQUENCY ){
+        Serial.println("ERR_INVALID_FREQUENCY");
       }
-      Serial.println(" message done");
-      SPI.end();*/
       delay(3000);
     }
   }
