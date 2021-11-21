@@ -13,9 +13,9 @@ void setup() {
 
   // initialize SX1278 with default settings
   Serial.print(F("SX127x_Receive_LoRaHat_ok"));
-#define CARRIER_FREQUENCY                          434.0f //868.1 //436.7f  // 413.9f  // MHz
+#define CARRIER_FREQUENCY                          868.1 //436.7f  // 413.9f  // MHz
 #define BANDWIDTH                                  125.0f  // kHz dual sideband
-#define SPREADING_FACTOR                           11
+#define SPREADING_FACTOR                            7
 #define CODINGRATE                                  8     // 4/8, Extended Hamming
 #define OUTPUT_POWER                               20     // dBm
 #define CURRENT_LIMIT                              120    // mA

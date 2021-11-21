@@ -28,10 +28,10 @@
 
 #define PIN_RESET    (12)
 #define PIN_D0       (14)
-#define PIN_D1       (27)
+#define PIN_D1       (25) // 27 seems not to work as output
 #define PIN_D2       (26)
 
-SX1278 lora = new Module(5, 14, 12, 27, 26);
+SX1278 lora = new Module(5, 14, 12, 25, 26);
 /*
 RFM95 freq, 862.0, 1020.0      *)
 RFM96 freq, 410.0, 525.0

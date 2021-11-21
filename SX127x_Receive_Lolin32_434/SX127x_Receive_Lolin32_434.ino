@@ -28,10 +28,10 @@
 
 #define PIN_D0       (14)
 #define PIN_RESET    (12)
-#define PIN_D1       (27)
+#define PIN_D1       (25) // 27 seems not to work as output
 #define PIN_D2       (26)
 
-SX1278 lora = new Module(5, 14, 12, 27);
+SX1278 lora = new Module(5, 14, 12, 25, 26);
 /*
 RFM95 freq, 862.0, 1020.0      *)
 RFM96 freq, 410.0, 525.0
@@ -63,7 +63,7 @@ void setup() {
   Serial.begin(115200);
 
   Serial.println(F("\nSX127x_Receive_Lolin32_434"));
-#define CARRIER_FREQUENCY       436.7  // MHz
+#define CARRIER_FREQUENCY       434.0 // 436.7  // MHz
 #define BANDWIDTH               125.0  // kHz dual sideband
 #define SPREADING_FACTOR        11
 #define CODING_RATE             8       // 4/8, Extended Hamming
@@ -125,13 +125,15 @@ void loop() {
     int state = lora.receive(byteArr, 8);
   */
 
-  if ((state == ERR_NONE) && (str.length() > 0 )) {
+  if (state == ERR_NONE) {
     // packet was successfully received
-    Serial.println(F("success!"));
+    Serial.println(F("packet received!"));
 
-    // print the data of the packet
-    Serial.print(F("[SX1278] Data:\t\t\t"));
-    Serial.println(str);
+    if ( str.length() > 0 ) {
+      // print the data of the packet
+      Serial.print(F("[SX1278] Data:\t\t\t"));
+      Serial.println(str);
+    }
 
     // print the RSSI (Received Signal Strength Indicator)
     // of the last received packet
@@ -148,7 +150,7 @@ void loop() {
     // print frequency error
     // of the last received packet
     Serial.print(F("[SX1278] Frequency error:\t"));
-//    Serial.print(lora.getFrequencyError());
+    Serial.print(lora.getFrequencyError());
     Serial.println(F(" Hz"));
 
   } else if (state == ERR_RX_TIMEOUT) {
